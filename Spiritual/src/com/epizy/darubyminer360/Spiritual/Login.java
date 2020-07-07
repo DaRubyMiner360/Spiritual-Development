@@ -3,6 +3,8 @@ package com.epizy.darubyminer360.Spiritual;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-
-import com.epizy.darubyminer360.Spiritual.ClientWindow;
 
 public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -59,6 +59,16 @@ public class Login extends JFrame {
 		txtName.setBounds(67, 50, 165, 28);
 		contentPane.add(txtName);
 		txtName.setColumns(10);
+		txtName.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String name = txtName.getText();
+					String address = txtAddress.getText();
+					int port = Integer.parseInt(txtPort.getText());
+					login(name, address, port);
+				}
+			}
+		});
 
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(127, 34, 45, 16);
@@ -68,6 +78,16 @@ public class Login extends JFrame {
 		txtAddress.setBounds(67, 116, 165, 28);
 		contentPane.add(txtAddress);
 		txtAddress.setColumns(10);
+		txtAddress.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String name = txtName.getText();
+					String address = txtAddress.getText();
+					int port = Integer.parseInt(txtPort.getText());
+					login(name, address, port);
+				}
+			}
+		});
 
 		lblIpAddress = new JLabel("IP Address:");
 		lblIpAddress.setBounds(111, 96, 77, 16);
@@ -77,12 +97,22 @@ public class Login extends JFrame {
 		txtPort.setColumns(10);
 		txtPort.setBounds(67, 191, 165, 28);
 		contentPane.add(txtPort);
+		txtPort.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String name = txtName.getText();
+					String address = txtAddress.getText();
+					int port = Integer.parseInt(txtPort.getText());
+					login(name, address, port);
+				}
+			}
+		});
 
 		lblPort = new JLabel("Port:");
 		lblPort.setBounds(133, 171, 34, 16);
 		contentPane.add(lblPort);
 
-		lblAddressDesc = new JLabel("(eg. 192.168.0.2)");
+		lblAddressDesc = new JLabel("(eg. 192.168.1.30)");
 		lblAddressDesc.setBounds(94, 142, 112, 16);
 		contentPane.add(lblAddressDesc);
 

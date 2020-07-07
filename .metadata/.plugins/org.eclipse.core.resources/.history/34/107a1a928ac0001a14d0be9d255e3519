@@ -1,0 +1,172 @@
+package com.epizy.darubyminer360.Spiritual;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+import com.epizy.darubyminer360.Spiritual.server.ServerClient;
+
+public class Client {
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1L;
+
+	private DatagramSocket socket;
+
+	private String name, address;
+	private int port;
+	private InetAddress ip;
+	private Thread send;
+	private int ID = -1;
+	private boolean isAdmin = false;
+
+	public Client(String name, String address, int port) {
+		this.name = name;
+		this.address = address;
+		this.port = port;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public int getPort() {
+		return port;
+	}
+	
+	public String getPortAsString() {
+		return Integer.toString(port);
+	}
+
+	public boolean openConnection(String address) {
+		try {
+			socket = new DatagramSocket();
+			ip = InetAddress.getByName(address);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return false;
+		} catch (SocketException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public String receive() {
+		byte[] data = new byte[1024];
+		DatagramPacket packet = new DatagramPacket(data, data.length);
+		try {
+			socket.receive(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String message = new String(packet.getData());
+		return message;
+	}
+
+	public void send(final byte[] data) {
+		send = new Thread("Send") {
+			public void run() {
+				DatagramPacket packet = new DatagramPacket(data, data.length, ip, port);
+				try {
+					socket.send(packet);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		send.start();
+		
+			String text = scanner.nextLine();
+			if (!text.startsWith("/")) {
+				sendToAll("/m/Server: " + text + "/e/");
+				continue;
+			}
+			text = text.substring(1);
+			if (text.equals("raw")) {
+				if (raw) System.out.println("Raw mode off.");
+				else System.out.println("Raw mode on.");
+				raw = !raw;
+			} else if (text.equals("clients")) {
+				System.out.println("Clients:");
+				System.out.println("========");
+				for (int i = 0; i < clients.size(); i++) {
+					ServerClient c = clients.get(i);
+					System.out.println(c.name + "(" + c.getID() + "): " + c.address.toString() + ":" + c.port);
+				}
+				System.out.println("========");
+			} else if (text.startsWith("kick")) {
+				String name = text.split(" ")[1];
+				int id = -1;
+				boolean number = true;
+				try {
+					id = Integer.parseInt(name);
+				} catch (NumberFormatException e) {
+					number = false;
+				}
+				if (number) {
+					boolean exists = false;
+					for (int i = 0; i < clients.size(); i++) {
+						if (clients.get(i).getID() == id) {
+							exists = true;
+							break;
+						}
+					}
+					if (exists) disconnect(id, true);
+					else System.out.println("Client " + id + " doesn't exist! Check ID number.");
+				} else {
+					for (int i = 0; i < clients.size(); i++) {
+						ServerClient c = clients.get(i);
+						if (name.equals(c.name)) {
+							disconnect(c.getID(), true);
+							break;
+						}
+					}
+				}
+			} else if (text.equals("help")) {
+				printHelp();
+			} else if (text.equals("quit")) {
+				quit();
+			} else {
+				System.out.println("Unknown command.");
+				printHelp();
+			}
+	}
+
+	public void close() {
+		new Thread() {
+			public void run() {
+				synchronized (socket) {
+					socket.close();
+				}
+			}
+		}.start();
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+	public int getID() {
+		return ID;
+	}
+	
+	public String getIDAsString() {
+		return Integer.toString(ID);
+	}
+	
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+	
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+}

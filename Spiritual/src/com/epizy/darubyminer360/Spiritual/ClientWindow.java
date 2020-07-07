@@ -1,5 +1,6 @@
 package com.epizy.darubyminer360.Spiritual;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,9 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
-
-import com.epizy.darubyminer360.Spiritual.Client;
-import com.epizy.darubyminer360.Spiritual.OnlineUsers;
 
 public class ClientWindow extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -44,6 +43,16 @@ public class ClientWindow extends JFrame implements Runnable {
 	private JMenuItem mntmExit;
 
 	private OnlineUsers users;
+	private JLabel lblName;
+	private JLabel lblIpAddress;
+	private JLabel lblPort;
+	private JLabel lblID;
+	private JLabel lblBlank;
+	private JLabel lblBlank_1;
+	private JLabel lblBlank_2;
+	private JLabel lblBlank_3;
+	
+	private String prefix;
 
 	public ClientWindow(String name, String address, int port) {
 		setTitle("Spiritual Client");
@@ -89,6 +98,38 @@ public class ClientWindow extends JFrame implements Runnable {
 
 		mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		
+		lblBlank_3 = new JLabel("  ");
+		lblBlank_3.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblBlank_3);
+		
+		lblName = new JLabel(client.getName());
+		lblName.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblName);
+		
+		lblBlank = new JLabel("  ");
+		lblBlank.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblBlank);
+		
+		lblPort = new JLabel(client.getPortAsString());
+		lblPort.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblPort);
+		
+		lblBlank_1 = new JLabel("  ");
+		lblBlank_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblBlank_1);
+		
+		/*lblID = new JLabel(client.getIDAsString());
+		lblID.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblID);
+		
+		lblBlank_2 = new JLabel("  ");
+		lblBlank_2.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblBlank_2);*/
+		
+		lblIpAddress = new JLabel(client.getAddress());
+		lblIpAddress.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuBar.add(lblIpAddress);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -167,9 +208,14 @@ public class ClientWindow extends JFrame implements Runnable {
 	}
 
 	private void send(String message, boolean text) {
+		if(client.getIsAdmin())
+			prefix = "[ADMIN]";
+		else
+			prefix = "";
+		
 		if (message.equals("")) return;
 		if (text) {
-			message = client.getName() + ": " + message;
+			message = prefix + " " + client.getName() + ": " + message;
 			message = "/m/" + message + "/e/";
 			txtMessage.setText("");
 		}
