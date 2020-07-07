@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="1327" key="clean_up_selection_dialog.preferred_width"/>
+	<item value="1020" key="clean_up_selection_dialog.preferred_height"/>
+	<item value="0" key="clean_up_selection_dialog.preferred_y"/>
 	<item value="C:\Users\Robert\Desktop\Code\Apps\Java\Spiritual\src" key="org.eclipse.jdt.ui.last.external.project"/>
+	<item value="297" key="clean_up_selection_dialog.preferred_x"/>
 	<section name="RefactoringWizard.preview">
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
@@ -31,6 +35,12 @@
 	<section name="BuildPathsPropertyPage">
 		<item value="0" key="pageIndex"/>
 	</section>
+	<section name="org.eclipse.jdt.internal.ui.typehierarchy.QuickHierarchy">
+		<item value="true" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_SIZE"/>
+		<item value="462" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_HEIGHT"/>
+		<item value="600" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_WIDTH"/>
+		<item value="false" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
+	</section>
 	<section name="completion_proposal_size">
 	</section>
 	<section name="JarPackageWizard">
@@ -53,8 +63,8 @@
 		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
-			<item value="C:\Users\Robert\Desktop\Code\Apps\Java\Releases\Spiritual\SpiritualServer.jar"/>
 			<item value="C:\Users\Robert\Desktop\Code\Apps\Java\Releases\Spiritual\SpiritualClient.jar"/>
+			<item value="C:\Users\Robert\Desktop\Code\Apps\Java\Releases\Spiritual\SpiritualServer.jar"/>
 		</list>
 	</section>
 	<section name="JavaElementSearchActions">

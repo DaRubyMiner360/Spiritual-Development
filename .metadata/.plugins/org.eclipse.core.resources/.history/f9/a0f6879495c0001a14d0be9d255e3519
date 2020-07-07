@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.epizy.darubyminer360.Spiritual.Client;
+
 public class Server implements Runnable {
 
 	private List<ServerClient> clients = new ArrayList<ServerClient>();
+	//private List<Client> clients2 = new ArrayList<Client>();
 	private List<Integer> clientResponse = new ArrayList<Integer>();
 
 	private DatagramSocket socket;
@@ -87,7 +90,43 @@ public class Server implements Runnable {
 						}
 					}
 				}
-			} else if (text.equals("help")) {
+			}/* else if (text.startsWith("admin")) {
+				String name = text.split(" ")[1];
+				String stringStatus = text.split(" ")[2];
+				boolean status = true;
+				if(stringStatus == "true")
+					status = true;
+				else if(stringStatus == "false")
+					status = false;
+				else System.out.println("Invalid Second Argument: " + stringStatus + "! Must be 'true' or 'false'!");
+					
+				int id = -1;
+				boolean number = true;
+				try {
+					id = Integer.parseInt(name);
+				} catch (NumberFormatException e) {
+					number = false;
+				}
+				if (number) {
+					boolean exists = false;
+					for (int i = 0; i < clients.size(); i++) {
+						if (clients.get(i).getID() == id) {
+							exists = true;
+							break;
+						}
+					}
+					if (exists) makeAdmin(id, status);
+					else System.out.println("Client " + id + " doesn't exist! Check ID number.");
+				} else {
+					for (int i = 0; i < clients.size(); i++) {
+						ServerClient c = clients.get(i);
+						if (name.equals(c.name)) {
+							makeAdmin(c.getID(), status);
+							break;
+						}
+					}
+				}
+			} */else if (text.equals("help")) {
 				printHelp();
 			} else if (text.equals("quit")) {
 				quit();
@@ -107,6 +146,7 @@ public class Server implements Runnable {
 		System.out.println("/kick [users ID or username] - kicks a user.");
 		System.out.println("/help - shows this help message.");
 		System.out.println("/quit - shuts down the server.");
+		System.out.println("/admin [users ID or username] - makes a user an ADMIN.");
 	}
 
 	private void manageClients() {
@@ -250,5 +290,28 @@ public class Server implements Runnable {
 		}
 		System.out.println(message);
 	}
+	
+	/*private void makeAdmin(int id, boolean status) {
+		ServerClient c = null;
+		Client client = null;
+		boolean existed = false;
+		for (int i = 0; i < clients.size(); i++) {
+			if (clients.get(i).getID() == id) {
+				c = clients.get(i);
+				client = clients2.get(i);
+				client.setIsAdmin(status);
+				existed = true;
+				break;
+			}
+		}
+		if (!existed) return;
+		String message = "";
+		if (status) {
+			message = "Client " + c.name + " (" + c.getID() + ") @ " + c.address.toString() + ":" + c.port + " is now ADMIN.";
+		} else {
+			message = "Client " + c.name + " (" + c.getID() + ") @ " + c.address.toString() + ":" + c.port + " is no longer ADMIN.";
+		}
+		System.out.println(message);
+	}*/
 
 }
