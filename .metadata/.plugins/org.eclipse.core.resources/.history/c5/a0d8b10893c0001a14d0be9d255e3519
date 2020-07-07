@@ -116,7 +116,7 @@ public class Login extends JFrame {
 		lblAddressDesc.setBounds(94, 142, 112, 16);
 		contentPane.add(lblAddressDesc);
 
-		lblPortDesc = new JLabel("(eg. 62714)");
+		lblPortDesc = new JLabel("(eg. 8192)");
 		lblPortDesc.setBounds(116, 218, 68, 16);
 		contentPane.add(lblPortDesc);
 
