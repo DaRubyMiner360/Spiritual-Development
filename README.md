@@ -11,7 +11,7 @@ DON'T SAY I DIDN'T WARN YOU!**
 Spiritual is a communication tool made for chating.<!--- It is primarily made for chating about Spirit Engine though.-->
 
 ## Getting Started
-You can download the jar file from [Spiritual](https://github.com/DaRubyMiner360/Spiritual).
+You can download the jar files from [Spiritual](https://github.com/DaRubyMiner360/Spiritual).
 
 You can also clone the repository to a local destination using git:
 
